@@ -28,6 +28,7 @@ import (
 	"os/signal"
 	"sync"
 	"time"
+	"math/rand"
 
 	"golang.org/x/net/http2"
 )
@@ -50,7 +51,7 @@ type Work struct {
 	// Request is the request to be made.
 	Request *http.Request
 
-	RequestBody []byte
+	RequestBody []string
 
 	// N is the total number of requests to make.
 	N int
@@ -151,7 +152,8 @@ func (b *Work) makeRequest(c *http.Client) {
 	var code int
 	var dnsStart, connStart, resStart, reqStart, delayStart time.Time
 	var dnsDuration, connDuration, resDuration, reqDuration, delayDuration time.Duration
-	req := cloneRequest(b.Request, b.RequestBody)
+
+	req := cloneRequest(b.Request, []byte(b.RequestBody[rand.Intn(len(b.RequestBody)-1)]))
 	if b.EnableTrace {
 		trace := &httptrace.ClientTrace{
 			DNSStart: func(info httptrace.DNSStartInfo) {
@@ -232,6 +234,7 @@ func (b *Work) runWorker(n int) {
 }
 
 func (b *Work) runWorkers() {
+
 	var wg sync.WaitGroup
 	wg.Add(b.C)
 

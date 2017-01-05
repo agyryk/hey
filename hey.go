@@ -18,7 +18,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
+	//"io/ioutil"
 	"net/http"
 	gourl "net/url"
 	"os"
@@ -27,6 +27,7 @@ import (
 	"strings"
 
 	"github.com/agyryk/hey/requester"
+	"bufio"
 )
 
 const (
@@ -166,16 +167,20 @@ func main() {
 		username, password = match[1], match[2]
 	}
 
-	var bodyAll []byte
+	var bodyAll []string
 	if *body != "" {
-		bodyAll = []byte(*body)
+		bodyAll = append(bodyAll, *body)
 	}
 	if *bodyFile != "" {
-		slurp, err := ioutil.ReadFile(*bodyFile)
+		file, err := os.Open(*bodyFile)
 		if err != nil {
 			errAndExit(err.Error())
 		}
-		bodyAll = slurp
+		defer  file.Close()
+		scanner := bufio.NewScanner(file)
+		for scanner.Scan() {
+			bodyAll = append(bodyAll, scanner.Text())
+		}
 	}
 
 	if *output != "csv" && *output != "" {
