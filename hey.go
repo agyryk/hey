@@ -53,7 +53,7 @@ var (
 	body        = flag.String("d", "", "")
 	bodyFile    = flag.String("D", "", "")
 	accept      = flag.String("A", "", "")
-	contentType = flag.String("T", "text/html", "")
+	contentType = flag.String("T", "application/json", "")
 	authHeader  = flag.String("a", "", "")
 	hostHeader  = flag.String("host", "", "")
 
