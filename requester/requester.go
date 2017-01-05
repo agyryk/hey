@@ -188,7 +188,7 @@ func (b *Work) makeRequest(c *http.Client) {
 		defer resp.Body.Close()
 		fmt.Println("== Server request body ==")
 		fmt.Println(jsonBody)
-		fmt.Println("== Server response ===")
+		fmt.Println("== Server response ==")
 		respBData, err := ioutil.ReadAll(resp.Body)
 		if err == nil {
 			fmt.Println(string(respBData))

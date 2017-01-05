@@ -1,19 +1,8 @@
 # hey
 
-[![Build Status](https://travis-ci.org/rakyll/hey.png?branch=master)](https://travis-ci.org/rakyll/hey)
+forked from rakyll/hey
 
-Previously known as [github.com/rakyll/boom](https://github.com/rakyll/boom).
 
-Requires go 1.7 or greater.
-
-----
-
-hey is a tiny program that sends some load to a web application.
-
-hey was originally called boom and was influenced from Tarek Ziade's
-tool at [tarekziade/boom](https://github.com/tarekziade/boom). Using the same name was a mistake as it resulted in cases
-where binary name conflicts created confusion.
-To preserve the name for its original owner, we renamed this project to hey.
 
 ## Installation
 
@@ -58,4 +47,5 @@ Options:
                         (default for current machine is 8 cores)
   -more                 Provides information on DNS lookup, dialup, request and
                         response timings.
+  -debug		        Turn On the debug mode which is printing all servrer requests and responses
 ```
