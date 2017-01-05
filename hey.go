@@ -108,7 +108,7 @@ Options:
                         (default for current machine is %d cores)
   -more                 Provides information on DNS lookup, dialup, request and
                         response timings.
-  -debug		Tunrns On the debug mode which is printing all servrer requests and responses
+  -debug		Tunrns On the debug mode which is printing all server requests and responses
 `
 
 func main() {

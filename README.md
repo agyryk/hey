@@ -47,5 +47,5 @@ Options:
                         (default for current machine is 8 cores)
   -more                 Provides information on DNS lookup, dialup, request and
                         response timings.
-  -debug		        Turn On the debug mode which is printing all servrer requests and responses
+  -debug		        Print all server requests and responses while executing
 ```
