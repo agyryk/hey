@@ -86,6 +86,8 @@ type Work struct {
 	ProxyAddr *url.URL
 
 	results chan *result
+
+	DebugMode bool
 }
 
 // displayProgress outputs the displays until stopCh returns a value.
@@ -152,8 +154,9 @@ func (b *Work) makeRequest(c *http.Client) {
 	var code int
 	var dnsStart, connStart, resStart, reqStart, delayStart time.Time
 	var dnsDuration, connDuration, resDuration, reqDuration, delayDuration time.Duration
-
-	req := cloneRequest(b.Request, []byte(b.RequestBody[rand.Intn(len(b.RequestBody)-1)]))
+	//var jsonBody string
+	jsonBody := b.RequestBody[rand.Intn(len(b.RequestBody)-1)]
+	req := cloneRequest(b.Request, []byte(jsonBody))
 	if b.EnableTrace {
 		trace := &httptrace.ClientTrace{
 			DNSStart: func(info httptrace.DNSStartInfo) {
@@ -181,6 +184,19 @@ func (b *Work) makeRequest(c *http.Client) {
 		req = req.WithContext(httptrace.WithClientTrace(req.Context(), trace))
 	}
 	resp, err := c.Do(req)
+	if b.DebugMode {
+		defer resp.Body.Close()
+		fmt.Println("== Server request body ==")
+		fmt.Println(jsonBody)
+		fmt.Println("== Server response ===")
+		respBData, err := ioutil.ReadAll(resp.Body)
+		if err == nil {
+			fmt.Println(string(respBData))
+		} else {
+			fmt.Println(err)
+		}
+
+	}
 	if err == nil {
 		size = resp.ContentLength
 		code = resp.StatusCode
@@ -192,6 +208,7 @@ func (b *Work) makeRequest(c *http.Client) {
 		resDuration = t.Sub(resStart)
 	}
 	finish := t.Sub(s)
+
 	b.results <- &result{
 		statusCode:    code,
 		duration:      finish,

@@ -71,6 +71,7 @@ var (
 	disableCompression = flag.Bool("disable-compression", false, "")
 	disableKeepAlives  = flag.Bool("disable-keepalive", false, "")
 	proxyAddr          = flag.String("x", "", "")
+	debugMode	   = flag.Bool("debug", false, "")
 
 	enableTrace = flag.Bool("more", false, "")
 )
@@ -107,6 +108,7 @@ Options:
                         (default for current machine is %d cores)
   -more                 Provides information on DNS lookup, dialup, request and
                         response timings.
+  -debug		Tunrns On the debug mode which is printing all servrer requests and responses
 `
 
 func main() {
@@ -223,6 +225,7 @@ func main() {
 		ProxyAddr:          proxyURL,
 		Output:             *output,
 		EnableTrace:        *enableTrace,
+		DebugMode:	    *debugMode,
 	}).Run()
 }
 
