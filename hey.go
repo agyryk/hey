@@ -18,7 +18,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	//"io/ioutil"
 	"net/http"
 	gourl "net/url"
 	"os"

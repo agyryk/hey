@@ -6,7 +6,7 @@ forked from rakyll/hey
 
 ## Installation
 
-    go get -u github.com/rakyll/hey
+    go get -u github.com/agyryk/hey
 
 ## Usage
 
